@@ -21,8 +21,8 @@ class LoginPageController {
     try {
       await context.read<AuthService>().signup(
           usernameCreateTextFieldController!.text,
-          emailLoginTextFieldController!.text,
-          passwordLoginTextFieldController!.text);
+          emailCreateTextFieldController!.text,
+          passwordCreateTextFieldController!.text);
     } on AuthException catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context)

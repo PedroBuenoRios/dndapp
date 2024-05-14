@@ -1,16 +1,143 @@
 import 'package:dndapp/color_scheme.dart';
+import 'package:dndapp/models/monster_model.dart';
 import 'package:dndapp/pages/busca_resultado.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class BibliotecaPage extends StatelessWidget {
-  BibliotecaPage({super.key});
+class BibliotecaPage extends StatefulWidget {
+  const BibliotecaPage({super.key});
 
+  @override
+  State<BibliotecaPage> createState() => _BibliotecaPageState();
+}
+
+class _BibliotecaPageState extends State<BibliotecaPage> {
   final List<String> _folders = [
     'Pasta 1',
     'Pasta 2',
     'Pasta 3',
     'Pasta 4',
   ];
+
+  final List<Monster> _monsters = [
+    Monster(
+        iconPath: "images/tiamat.jpeg",
+        name: 'Tiamat1',
+        health: 1,
+        classDificulty: 10),
+    Monster(
+        iconPath: "images/tiamat.jpeg",
+        name: 'Tiamat2',
+        health: 2,
+        classDificulty: 10),
+    Monster(
+        iconPath: "images/tiamat.jpeg",
+        name: 'Tiamat3',
+        health: 3,
+        classDificulty: 10),
+  ];
+
+  Widget _listTileBuilder(BuildContext contex, int index) {
+    return ListTile(
+      leading: const Icon(Icons.folder),
+      title: Text(
+        _folders[index],
+        style: const TextStyle(
+            color: Color(primaryTextColor),
+            fontWeight: FontWeight.w400,
+            fontSize: 16),
+      ),
+    );
+  }
+
+  Widget _gridItemBuilder(BuildContext context, int index) {
+    final monsterItem = _monsters[index];
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {},
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.arrow_drop_down_circle),
+              title: Text(monsterItem.name),
+              subtitle: Text(
+                'CD: ${monsterItem.classDificulty.toString()}',
+                style: TextStyle(color: Colors.black.withOpacity(0.6)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
+                style: TextStyle(color: Colors.black.withOpacity(0.6)),
+              ),
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    // Perform some action
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.edit),
+                      Padding(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text(
+                          'EDITAR',
+                          style: TextStyle(
+                            color: Color(0xFF6200EE),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Perform some action
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.delete),
+                      Padding(
+                        padding: EdgeInsets.only(left: 6),
+                        child: Text(
+                          'EXCLUIR',
+                          style: TextStyle(
+                            color: Color(0xFF6200EE),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 2 / 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  clipBehavior: Clip.antiAlias,
+                  child:
+                      Image.asset('images/reddragon2.webp', fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +149,14 @@ class BibliotecaPage extends StatelessWidget {
             children: [
               Align(
                 alignment: const AlignmentDirectional(0, 0),
-                child: Image.asset('images/Reddragon.webp',
-                    width: double.infinity,
-                    height: 255,
-                    fit: BoxFit.cover,
-                    opacity: const AlwaysStoppedAnimation(0.9)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset('images/Reddragon.webp',
+                      width: double.infinity,
+                      height: 255,
+                      fit: BoxFit.cover,
+                      opacity: const AlwaysStoppedAnimation(0.9)),
+                ),
               ),
               Align(
                 alignment: const AlignmentDirectional(0, 0),
@@ -114,27 +244,6 @@ class BibliotecaPage extends StatelessWidget {
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        errorBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedErrorBorder:
-                                            UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
                                       ),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w400,
@@ -171,24 +280,38 @@ class BibliotecaPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: const AlignmentDirectional(-1, 0),
+                      Padding(
+                        padding: EdgeInsets.zero,
                         child: ListView.separated(
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                leading: const Icon(Icons.folder),
-                                title: Text(_folders[index]),
-                              );
-                            },
-                            padding: const EdgeInsets.all(16),
-                            separatorBuilder: (_, __) => const Divider(
-                                  indent: 7,
-                                  endIndent: 7,
-                                  color: Colors.grey,
-                                  thickness: 2,
-                                ),
-                            itemCount: _folders.length),
+                          itemCount: _folders.length,
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: _listTileBuilder,
+                          separatorBuilder: (_, __) => const Divider(
+                            indent: 0,
+                            endIndent: 0,
+                            color: Colors.grey,
+                            thickness: 2,
+                          ),
+                        ),
                       ),
+                      Padding(
+                          padding: EdgeInsets.zero,
+                          child: GridView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: _monsters.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1.0,
+                              ),
+                              itemBuilder: _gridItemBuilder))
                     ],
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:dndapp/pages/redefinir_senha.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -402,8 +403,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                       fontFamily: 'Readex Pro',
                                                       letterSpacing: 0,
                                                     ),
-                                                    keyboardType: TextInputType
-                                                        .emailAddress,
                                                     validator: _controller
                                                         .passwordLoginTextFieldValidator,
                                                   ),
@@ -480,8 +479,12 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                     height: 40,
                                                     child: TextButton(
                                                       onPressed: () {
-                                                        debugPrint(
-                                                            'forgotPasswordButton pressed ...');
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const RedefinirSenhaPage()),
+                                                        );
                                                       },
                                                       child: const Padding(
                                                         padding:
@@ -689,8 +692,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                 fontFamily: 'Readex Pro',
                                                 letterSpacing: 0,
                                               ),
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
                                               validator: _controller
                                                   .usernameCreateTextFieldValidator,
                                             ),

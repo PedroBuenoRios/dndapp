@@ -1,4 +1,5 @@
 import 'package:dndapp/pages/biblioteca.dart';
+import 'package:dndapp/pages/criar_ficha.dart';
 import 'package:dndapp/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:dndapp/models/monster_model.dart';
@@ -11,24 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Monster> _monsters = [
-    Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat1',
-        health: 1,
-        classDificulty: 10),
-    Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat2',
-        health: 2,
-        classDificulty: 10),
-    Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat3',
-        health: 3,
-        classDificulty: 10),
-  ];
-
   int _selectedIndex = 0;
   var pageViewController = PageController(initialPage: 0);
 
@@ -74,7 +57,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add logic to create a new folder or card
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CriarFichaPage()),
+          );
         },
         child: const Icon(Icons.add),
       ),

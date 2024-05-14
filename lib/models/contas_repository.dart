@@ -1,4 +1,3 @@
-import 'package:dndapp/database/db.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,7 +16,7 @@ class ContasRepository extends ChangeNotifier {
   }
 
   _getEmail() async {
-    db = await DB.instance.database;
-    List contas = await db.query('conta', where: 'email');
+    // db = await DB.instance.database;
+    //List contas = await db.query('conta', where: 'email');
   }
 }

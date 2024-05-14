@@ -37,8 +37,8 @@ class AuthService extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é muito fraca');
-      } else if (e.code == 'email-already-exists') {
-        throw AuthException('Email já está cadastrado');
+      } else if (e.code == 'email-already-in-use') {
+        throw AuthException('Email já cadastrado');
       }
     }
   }
@@ -59,5 +59,15 @@ class AuthService extends ChangeNotifier {
   logout() async {
     await _auth.signOut();
     _getUser();
+  }
+
+  redefinirSenha(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'invalid-email') {
+        throw AuthException('Email não encontrado');
+      }
+    }
   }
 }
