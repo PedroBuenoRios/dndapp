@@ -1,4 +1,4 @@
-import 'package:dndapp/model/monster_model.dart';
+import 'package:dndapp/models/monster_model.dart';
 
 class MonsterRepository {
   static List<Monster> lista = [

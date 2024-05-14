@@ -1,9 +1,8 @@
-import 'package:dndapp/biblioteca.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'model/login_page_model.dart';
-import 'color_scheme.dart';
+import '../controllers/login_page_controller.dart';
+import '../color_scheme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,40 +14,35 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   //final FirebaseAuth _auth = FirebaseAuth.instance;
   //final GoogleSignIn _googleSignIn = GoogleSignIn();
-  late LoginPageModel _model;
+  late LoginPageController _controller;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _model = LoginPageModel();
-    _model.initState(context);
-    _model.tabBarController = TabController(
+    _controller = LoginPageController();
+    _controller.initState(context);
+    _controller.tabBarController = TabController(
       vsync: this,
       length: 2,
       initialIndex: 0,
     )..addListener(() => setState(() {}));
-    _model.usernameLoginTextFieldController ??= TextEditingController();
-    _model.usernameLoginTextFieldFocusNode ??= FocusNode();
+    _controller.emailLoginTextFieldController ??= TextEditingController();
 
-    _model.passwordLoginTextFieldController ??= TextEditingController();
-    _model.passwordLoginTextFieldFocusNode ??= FocusNode();
+    _controller.passwordLoginTextFieldController ??= TextEditingController();
 
-    _model.usernameCreateTextFieldController ??= TextEditingController();
-    _model.usernameCreateTextFieldFocusNode ??= FocusNode();
+    _controller.usernameCreateTextFieldController ??= TextEditingController();
 
-    _model.emailCreateTextFieldController ??= TextEditingController();
-    _model.emailCreateTextFieldFocusNode ??= FocusNode();
+    _controller.emailCreateTextFieldController ??= TextEditingController();
 
-    _model.passwordCreateTextFieldController ??= TextEditingController();
-    _model.passwordCreateTextFieldFocusNode ??= FocusNode();
+    _controller.passwordCreateTextFieldController ??= TextEditingController();
 
-    _model.passwordConfirmTextFieldController ??= TextEditingController();
-    _model.passwordConfirmTextFieldFocusNode ??= FocusNode();
+    _controller.passwordConfirmTextFieldController ??= TextEditingController();
   }
 
   @override
   void dispose() {
-    _model.dispose();
+    _controller.dispose();
 
     super.dispose();
   }
@@ -164,12 +158,12 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     text: 'Cadastrar',
                                   ),
                                 ],
-                                controller: _model.tabBarController,
+                                controller: _controller.tabBarController,
                               ),
                             ),
                             Expanded(
                               child: TabBarView(
-                                controller: _model.tabBarController,
+                                controller: _controller.tabBarController,
                                 children: [
                                   Align(
                                     alignment: const AlignmentDirectional(0, 0),
@@ -198,334 +192,399 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 0, 16),
-                                            child: TextFormField(
-                                              autovalidateMode: AutovalidateMode
-                                                  .onUserInteraction,
-                                              controller: _model
-                                                  .usernameLoginTextFieldController,
-                                              focusNode: _model
-                                                  .usernameLoginTextFieldFocusNode,
-                                              autofocus: true,
-                                              obscureText: false,
-                                              decoration: InputDecoration(
-                                                labelText: 'Nome de usuário',
-                                                labelStyle: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      Color(primaryTextColor),
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color:
-                                                        Color(alternateColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color:
-                                                        Color(primaryTextColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(errorColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(errorColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                contentPadding:
-                                                    const EdgeInsets.all(24),
-                                              ),
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                              validator: _model
-                                                  .usernameLoginTextFieldControllerValidator,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0, 0, 0, 16),
-                                            child: TextFormField(
-                                              autovalidateMode: AutovalidateMode
-                                                  .onUserInteraction,
-                                              controller: _model
-                                                  .passwordLoginTextFieldController,
-                                              focusNode: _model
-                                                  .passwordLoginTextFieldFocusNode,
-                                              autofocus: false,
-                                              obscureText: !_model
-                                                  .passwordLoginTextFieldVisibility,
-                                              decoration: InputDecoration(
-                                                labelText: 'Senha',
-                                                labelStyle: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                                hintStyle: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color:
-                                                        Color(alternateColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color:
-                                                        Color(primaryTextColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                errorBorder: OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(errorColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                focusedErrorBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: const BorderSide(
-                                                    color: Color(errorColor),
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                ),
-                                                contentPadding:
-                                                    const EdgeInsets.all(24),
-                                                suffixIcon: InkWell(
-                                                  onTap: () => setState(
-                                                    () => _model
-                                                            .passwordLoginTextFieldVisibility =
-                                                        !_model
-                                                            .passwordLoginTextFieldVisibility,
-                                                  ),
-                                                  focusNode: FocusNode(
-                                                      skipTraversal: true),
-                                                  child: Icon(
-                                                    _model.passwordLoginTextFieldVisibility
-                                                        ? Icons
-                                                            .visibility_outlined
-                                                        : Icons
-                                                            .visibility_off_outlined,
-                                                    color: const Color(
-                                                        secondaryTextColor),
-                                                    size: 24,
-                                                  ),
-                                                ),
-                                              ),
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(primaryTextColor),
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0,
-                                              ),
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              validator: _model
-                                                  .passwordLoginTextFieldControllerValidator,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 16),
-                                              child: SizedBox(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.07,
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        0.65,
-                                                child: FilledButton(
-                                                  onPressed: () {
-                                                    Navigator.pushReplacement(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (BuildContext
-                                                                    context) =>
-                                                                const BibliotecaPage()));
-                                                  },
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .resolveWith<
-                                                                Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                        if (states.contains(
-                                                            MaterialState
-                                                                .pressed)) {
-                                                          return Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .primary
-                                                              .withOpacity(0.5);
-                                                        }
-                                                        return const Color(
-                                                            0xFFC7363B); // Use the component's default.
-                                                      },
-                                                    ),
-                                                  ),
-                                                  child: const Padding(
-                                                      padding:
-                                                          EdgeInsets.all(16),
-                                                      child: Text('Entrar',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Readex Pro',
-                                                            color: Colors.white,
-                                                            letterSpacing: 0,
-                                                          ))),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: SizedBox(
-                                              height: 40,
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  print(
-                                                      'forgotPasswordButton pressed ...');
-                                                },
-                                                child: const Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(24, 0, 24, 0),
-                                                  child: Text(
-                                                    'Esqueci minha senha',
-                                                    style: TextStyle(
+                                          Form(
+                                            key: formKey,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0, 0, 0, 16),
+                                                  child: TextFormField(
+                                                    autovalidateMode:
+                                                        AutovalidateMode
+                                                            .onUserInteraction,
+                                                    controller: _controller
+                                                        .emailLoginTextFieldController,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Email',
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
                                                         color: Color(
-                                                            primaryTextColor)),
+                                                            primaryTextColor),
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Color(
+                                                              alternateColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Color(
+                                                              primaryTextColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      errorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color:
+                                                              Color(errorColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      focusedErrorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color:
+                                                              Color(errorColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              24),
+                                                    ),
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: 'Readex Pro',
+                                                      letterSpacing: 0,
+                                                    ),
+                                                    validator: _controller
+                                                        .emailLoginTextFieldValidator,
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                          const Align(
-                                            alignment:
-                                                AlignmentDirectional(0, 0),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(1, 12, 0, 24),
-                                              child: Text(
-                                                'Ou entre com',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color:
-                                                      Color(secondaryTextColor),
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(
-                                                    0, 0),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                print(
-                                                    'loginGoogleButton pressed ...');
-                                              },
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty
-                                                        .resolveWith<Color?>(
-                                                  (Set<MaterialState> states) {
-                                                    if (states.contains(
-                                                        MaterialState
-                                                            .pressed)) {
-                                                      return Theme.of(context)
-                                                          .colorScheme
-                                                          .primary
-                                                          .withOpacity(0.5);
-                                                    }
-                                                    return Colors
-                                                        .white; // Use the component's default.
-                                                  },
-                                                ),
-                                              ),
-                                              child: const Padding(
-                                                padding:
-                                                    EdgeInsetsDirectional.all(
-                                                        16),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                        FontAwesomeIcons.google,
-                                                        color: Colors.black87),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 20),
-                                                      child: Text(
-                                                        'Continuar com o Google',
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                primaryTextColor),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 14),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                          0, 0, 0, 16),
+                                                  child: TextFormField(
+                                                    autovalidateMode:
+                                                        AutovalidateMode
+                                                            .onUserInteraction,
+                                                    controller: _controller
+                                                        .passwordLoginTextFieldController,
+                                                    autofocus: false,
+                                                    obscureText: !_controller
+                                                        .passwordLoginTextFieldVisibility,
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Senha',
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                      hintStyle:
+                                                          const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                      ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Color(
+                                                              alternateColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Color(
+                                                              primaryTextColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      errorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color:
+                                                              Color(errorColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      focusedErrorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color:
+                                                              Color(errorColor),
+                                                          width: 2,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(40),
+                                                      ),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              24),
+                                                      suffixIcon: InkWell(
+                                                        onTap: () => setState(
+                                                          () => _controller
+                                                                  .passwordLoginTextFieldVisibility =
+                                                              !_controller
+                                                                  .passwordLoginTextFieldVisibility,
+                                                        ),
+                                                        focusNode: FocusNode(
+                                                            skipTraversal:
+                                                                true),
+                                                        child: Icon(
+                                                          _controller.passwordLoginTextFieldVisibility
+                                                              ? Icons
+                                                                  .visibility_outlined
+                                                              : Icons
+                                                                  .visibility_off_outlined,
+                                                          color: const Color(
+                                                              secondaryTextColor),
+                                                          size: 24,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color(
+                                                          primaryTextColor),
+                                                      fontFamily: 'Readex Pro',
+                                                      letterSpacing: 0,
+                                                    ),
+                                                    keyboardType: TextInputType
+                                                        .emailAddress,
+                                                    validator: _controller
+                                                        .passwordLoginTextFieldValidator,
+                                                  ),
                                                 ),
-                                              ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0, 0, 0, 16),
+                                                    child: SizedBox(
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.07,
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.65,
+                                                      child: FilledButton(
+                                                        onPressed: () {
+                                                          _controller
+                                                              .signin(context);
+                                                        },
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .resolveWith<
+                                                                      Color?>(
+                                                            (Set<MaterialState>
+                                                                states) {
+                                                              if (states.contains(
+                                                                  MaterialState
+                                                                      .pressed)) {
+                                                                return Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary
+                                                                    .withOpacity(
+                                                                        0.5);
+                                                              }
+                                                              return const Color(
+                                                                  0xFFC7363B); // Use the component's default.
+                                                            },
+                                                          ),
+                                                        ),
+                                                        child: const Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16),
+                                                            child: Text(
+                                                                'Entrar',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  letterSpacing:
+                                                                      0,
+                                                                ))),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0, 0),
+                                                  child: SizedBox(
+                                                    height: 40,
+                                                    child: TextButton(
+                                                      onPressed: () {
+                                                        debugPrint(
+                                                            'forgotPasswordButton pressed ...');
+                                                      },
+                                                      child: const Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(24, 0,
+                                                                    24, 0),
+                                                        child: Text(
+                                                          'Esqueci minha senha',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  primaryTextColor)),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0, 0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                1, 12, 0, 24),
+                                                    child: Text(
+                                                      'Ou entre com',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Color(
+                                                            secondaryTextColor),
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0, 0),
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      debugPrint(
+                                                          'loginGoogleButton pressed ...');
+                                                    },
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .resolveWith<
+                                                                  Color?>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                          if (states.contains(
+                                                              MaterialState
+                                                                  .pressed)) {
+                                                            return Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary
+                                                                .withOpacity(
+                                                                    0.5);
+                                                          }
+                                                          return Colors
+                                                              .white; // Use the component's default.
+                                                        },
+                                                      ),
+                                                    ),
+                                                    child: const Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .all(16),
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                              FontAwesomeIcons
+                                                                  .google,
+                                                              color: Colors
+                                                                  .black87),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 20),
+                                                            child: Text(
+                                                              'Continuar com o Google',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      primaryTextColor),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 14),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -565,10 +624,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             child: TextFormField(
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
-                                              controller: _model
+                                              controller: _controller
                                                   .usernameCreateTextFieldController,
-                                              focusNode: _model
-                                                  .usernameCreateTextFieldFocusNode,
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -634,8 +691,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                               ),
                                               keyboardType:
                                                   TextInputType.emailAddress,
-                                              validator: _model
-                                                  .usernameCreateTextFieldControllerValidator,
+                                              validator: _controller
+                                                  .usernameCreateTextFieldValidator,
                                             ),
                                           ),
                                           Padding(
@@ -644,10 +701,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             child: TextFormField(
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
-                                              controller: _model
+                                              controller: _controller
                                                   .emailCreateTextFieldController,
-                                              focusNode: _model
-                                                  .emailCreateTextFieldFocusNode,
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -717,8 +772,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                               ),
                                               keyboardType:
                                                   TextInputType.emailAddress,
-                                              validator: _model
-                                                  .emailCreateTextFieldControllerValidator,
+                                              validator: _controller
+                                                  .emailCreateTextFieldValidator,
                                             ),
                                           ),
                                           Padding(
@@ -727,12 +782,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             child: TextFormField(
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
-                                              controller: _model
+                                              controller: _controller
                                                   .passwordCreateTextFieldController,
-                                              focusNode: _model
-                                                  .passwordCreateTextFieldFocusNode,
                                               autofocus: false,
-                                              obscureText: !_model
+                                              obscureText: !_controller
                                                   .passwordCreateTextFieldVisibility,
                                               decoration: InputDecoration(
                                                 labelText: 'Senha',
@@ -793,15 +846,15 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                     const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
                                                   onTap: () => setState(
-                                                    () => _model
+                                                    () => _controller
                                                             .passwordCreateTextFieldVisibility =
-                                                        !_model
+                                                        !_controller
                                                             .passwordCreateTextFieldVisibility,
                                                   ),
                                                   focusNode: FocusNode(
                                                       skipTraversal: true),
                                                   child: Icon(
-                                                    _model.passwordCreateTextFieldVisibility
+                                                    _controller.passwordCreateTextFieldVisibility
                                                         ? Icons
                                                             .visibility_outlined
                                                         : Icons
@@ -819,8 +872,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                 fontFamily: 'Readex Pro',
                                                 letterSpacing: 0,
                                               ),
-                                              validator: _model
-                                                  .passwordCreateTextFieldControllerValidator,
+                                              validator: _controller
+                                                  .passwordCreateTextFieldValidator,
                                             ),
                                           ),
                                           Padding(
@@ -829,12 +882,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             child: TextFormField(
                                               autovalidateMode: AutovalidateMode
                                                   .onUserInteraction,
-                                              controller: _model
+                                              controller: _controller
                                                   .passwordConfirmTextFieldController,
-                                              focusNode: _model
-                                                  .passwordConfirmTextFieldFocusNode,
                                               autofocus: false,
-                                              obscureText: !_model
+                                              obscureText: !_controller
                                                   .passwordConfirmTextFieldVisibility,
                                               decoration: InputDecoration(
                                                 labelText:
@@ -896,15 +947,15 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                     const EdgeInsets.all(24),
                                                 suffixIcon: InkWell(
                                                   onTap: () => setState(
-                                                    () => _model
+                                                    () => _controller
                                                             .passwordConfirmTextFieldVisibility =
-                                                        !_model
+                                                        !_controller
                                                             .passwordConfirmTextFieldVisibility,
                                                   ),
                                                   focusNode: FocusNode(
                                                       skipTraversal: true),
                                                   child: Icon(
-                                                    _model.passwordConfirmTextFieldVisibility
+                                                    _controller.passwordConfirmTextFieldVisibility
                                                         ? Icons
                                                             .visibility_outlined
                                                         : Icons
@@ -922,8 +973,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                 fontFamily: 'Readex Pro',
                                                 letterSpacing: 0,
                                               ),
-                                              validator: _model
-                                                  .passwordConfirmTextFieldControllerValidator,
+                                              validator: _controller
+                                                  .passwordConfirmTextFieldValidator,
                                             ),
                                           ),
                                           Align(
@@ -945,8 +996,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                         0.07,
                                                 child: FilledButton(
                                                   onPressed: () {
-                                                    print(
-                                                        'createButton pressed ...');
+                                                    _controller.signup(context);
                                                   },
                                                   style: ButtonStyle(
                                                     backgroundColor:
@@ -1007,7 +1057,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                                     0, 0),
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                print(
+                                                debugPrint(
                                                     'loginGoogleButton pressed ...');
                                               },
                                               style: ButtonStyle(

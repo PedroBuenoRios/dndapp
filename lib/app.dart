@@ -1,5 +1,5 @@
+import 'package:dndapp/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
-import 'package:dndapp/login.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const LoginPage(),
+      home: const AuthCheck(),
     );
   }
 }

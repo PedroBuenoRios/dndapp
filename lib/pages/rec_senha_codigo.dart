@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:dndapp/login.dart';
+import 'package:dndapp/pages/rec_senha.dart';
 
-class RecuperacaoSenhaPage extends StatefulWidget {
-  const RecuperacaoSenhaPage({super.key});
+class RecuperacaoSenhaCodigoPage extends StatefulWidget {
+  const RecuperacaoSenhaCodigoPage({super.key});
 
   @override
-  State<RecuperacaoSenhaPage> createState() => _RecuperacaoSenhaState();
+  State<RecuperacaoSenhaCodigoPage> createState() =>
+      _RecuperacaoSenhaCodigoState();
 }
 
-class _RecuperacaoSenhaState extends State<RecuperacaoSenhaPage> {
+class _RecuperacaoSenhaCodigoState extends State<RecuperacaoSenhaCodigoPage> {
   //final FirebaseAuth _auth = FirebaseAuth.instance;
   //final GoogleSignIn _googleSignIn = GoogleSignIn();
   TextEditingController emailController = TextEditingController();
@@ -31,8 +32,23 @@ class _RecuperacaoSenhaState extends State<RecuperacaoSenhaPage> {
                 controller: emailController,
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Nova Senha',
-                    hintText: 'Digite sua nova senha'),
+                    labelText: 'Email',
+                    hintText: 'Digite o seu email'),
+              ),
+            ),
+            SizedBox(
+              width: double.maxFinite,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
+                child: ElevatedButton(
+                  onPressed: () async {},
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+                    child: Text('Enviar código'),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -40,9 +56,9 @@ class _RecuperacaoSenhaState extends State<RecuperacaoSenhaPage> {
               child: TextField(
                 controller: emailController,
                 decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Confirmação da Nova Senha',
-                    hintText: 'Digite sua nova senha'),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Código de Recuperação',
+                ),
               ),
             ),
             SizedBox(
@@ -54,11 +70,11 @@ class _RecuperacaoSenhaState extends State<RecuperacaoSenhaPage> {
                 ),
                 child: ElevatedButton(
                   onPressed: () async {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const RecuperacaoSenhaPage()));
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
