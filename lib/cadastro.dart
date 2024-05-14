@@ -4,7 +4,7 @@ class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
 
   @override
-  _CadastroPageState createState() => _CadastroPageState();
+  State<CadastroPage> createState() => _CadastroPageState();
 }
 
 class _CadastroPageState extends State<CadastroPage> {

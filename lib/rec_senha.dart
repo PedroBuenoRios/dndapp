@@ -5,7 +5,7 @@ class RecuperacaoSenhaPage extends StatefulWidget {
   const RecuperacaoSenhaPage({super.key});
 
   @override
-  _RecuperacaoSenhaState createState() => _RecuperacaoSenhaState();
+  State<RecuperacaoSenhaPage> createState() => _RecuperacaoSenhaState();
 }
 
 class _RecuperacaoSenhaState extends State<RecuperacaoSenhaPage> {

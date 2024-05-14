@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:dndapp/model/monster.dart';
+import 'package:dndapp/model/monster_model.dart';
+import 'model/folder_model.dart';
+import 'color_scheme.dart';
 
 class BibliotecaPage extends StatefulWidget {
   const BibliotecaPage({super.key});
 
   @override
-  _BibliotecaPageState createState() => _BibliotecaPageState();
+  State<BibliotecaPage> createState() => _BibliotecaPageState();
 }
 
 class _BibliotecaPageState extends State<BibliotecaPage> {
@@ -45,21 +47,17 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const ImageIcon(
-          AssetImage('images/dnd-logo.png'),
-          color: Colors.red,
-        ),
-        title: const Text('DnD'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Add search functionality here
-            },
-          ),
-        ],
-      ),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   leading: const Padding(
+      //     padding: EdgeInsets.only(left: 16),
+      //     child: ImageIcon(
+      //       AssetImage('images/dnd-logo.png'),
+      //       color: Colors.red,
+      //     ),
+      //   ),
+      //   title: const Text('Dungeons and Dragons'),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -81,34 +79,172 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
         unselectedItemColor: Colors.black54,
         onTap: _onItemTapped,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: _folders.length,
-              separatorBuilder: (context, index) => const Divider(
-                height: 1,
-                thickness: 2,
-                indent: 7,
-                color: Colors.grey,
-              ),
-              itemBuilder: (context, index) {
-                return _buildFolder(_folders[index]);
-              },
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Stack(
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0, 0),
+                  child: Image.asset('images/Reddragon.webp',
+                      width: double.infinity,
+                      height: 255,
+                      fit: BoxFit.cover,
+                      opacity: const AlwaysStoppedAnimation(0.9)),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(0, 0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(20, 120, 20, 0),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Dungeons and Dragons',
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 27, 0, 0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 52,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  15, 0, 15, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  SearchResultPage()));
+                                    },
+                                    child: const Icon(
+                                      Icons.search,
+                                      color: Color(secondaryTextColor),
+                                      size: 24,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              5, 0, 0, 2),
+                                      child: TextFormField(
+                                        //controller: _model.textController,
+                                        //focusNode: _model.textFieldFocusNode,
+                                        onFieldSubmitted: (_) async {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          SearchResultPage()));
+                                        },
+                                        obscureText: false,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Procurar por ficha...',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          errorBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedErrorBorder:
+                                              UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(secondaryTextColor),
+                                          fontFamily: 'Playfair Display',
+                                          fontSize: 16,
+                                          letterSpacing: 0,
+                                        ),
+                                        // validator: _model
+                                        //     .textControllerValidator
+                                        //     .asValidator(context),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 32, 0, 20),
+                            child: Text(
+                              'Suas fichas',
+                              style: TextStyle(
+                                color: Color(secondaryTextColor),
+                                fontFamily: 'Playfair Display',
+                                fontSize: 18,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemCount: _monsters.length,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              itemBuilder: (context, index) {
-                return _buildMonsterCard(_monsters[index]);
-              },
-            ),
-          )
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -145,5 +281,19 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
       title: Text(name),
       leading: const Icon(Icons.folder),
     );
+  }
+}
+
+class SearchResultPage extends StatefulWidget {
+  const SearchResultPage({super.key});
+
+  @override
+  State<SearchResultPage> createState() => _SearchResultPageState();
+}
+
+class _SearchResultPageState extends State<SearchResultPage> {
+  @override
+  Widget build(context) {
+    return Text('Busca');
   }
 }
