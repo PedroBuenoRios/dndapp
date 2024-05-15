@@ -1,6 +1,9 @@
 import 'package:dndapp/color_scheme.dart';
+import 'package:dndapp/models/ficha_model.dart';
 import 'package:dndapp/models/monster_model.dart';
 import 'package:dndapp/pages/busca_resultado.dart';
+import 'package:dndapp/repositories/ficha_repository.dart';
+import 'package:dndapp/widgets/ficha_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -12,6 +15,8 @@ class BibliotecaPage extends StatefulWidget {
 }
 
 class _BibliotecaPageState extends State<BibliotecaPage> {
+  FichasRepository? _fichas;
+
   final List<String> _folders = [
     'Pasta 1',
     'Pasta 2',
@@ -21,20 +26,23 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
 
   final List<Monster> _monsters = [
     Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat1',
-        health: 1,
-        classDificulty: 10),
+      name: 'Tiamat 1',
+      health: 100,
+      classDificulty: 1,
+      iconPath: 'images/Reddragon.webp',
+    ),
     Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat2',
-        health: 2,
-        classDificulty: 10),
+      name: 'Tiamat 2',
+      health: 100,
+      classDificulty: 10,
+      iconPath: 'images/tiamat.jpeg',
+    ),
     Monster(
-        iconPath: "images/tiamat.jpeg",
-        name: 'Tiamat3',
-        health: 3,
-        classDificulty: 10),
+      name: 'Tiamat 3',
+      health: 100,
+      classDificulty: 100,
+      iconPath: 'images/reddragon2.webp',
+    ),
   ];
 
   Widget _listTileBuilder(BuildContext contex, int index) {
@@ -51,92 +59,8 @@ class _BibliotecaPageState extends State<BibliotecaPage> {
   }
 
   Widget _gridItemBuilder(BuildContext context, int index) {
-    final monsterItem = _monsters[index];
-    return InkWell(
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () {},
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.arrow_drop_down_circle),
-              title: Text(monsterItem.name),
-              subtitle: Text(
-                'CD: ${monsterItem.classDificulty.toString()}',
-                style: TextStyle(color: Colors.black.withOpacity(0.6)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                style: TextStyle(color: Colors.black.withOpacity(0.6)),
-              ),
-            ),
-            ButtonBar(
-              alignment: MainAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.edit),
-                      Padding(
-                        padding: EdgeInsets.only(left: 6),
-                        child: Text(
-                          'EDITAR',
-                          style: TextStyle(
-                            color: Color(0xFF6200EE),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Perform some action
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.delete),
-                      Padding(
-                        padding: EdgeInsets.only(left: 6),
-                        child: Text(
-                          'EXCLUIR',
-                          style: TextStyle(
-                            color: Color(0xFF6200EE),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 2 / 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  clipBehavior: Clip.antiAlias,
-                  child:
-                      Image.asset('images/reddragon2.webp', fit: BoxFit.cover),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    final fichaItem = _monsters[index];
+    return FichaCard(ficha: fichaItem);
   }
 
   @override
