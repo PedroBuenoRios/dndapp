@@ -3,7 +3,7 @@
 ### Aplicativo para gerenciar fichas de monstros e npcs de Dungeons and Dragons
 
 ## Features a serem adicionadas
- - [ ] - Criar Ficha no Firestore
+ - [ ] Criar Ficha no Firestore
  - [ ] Visualizar uma ficha
  - [ ] Editar suas fichas
  - [ ] Excluir uma ficha
