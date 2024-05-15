@@ -1,4 +1,4 @@
-# dndapp
+r# dndapp
 
 ### Aplicativo para gerenciar fichas de monstros e npcs de Dungeons and Dragons
 
